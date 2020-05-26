@@ -15,3 +15,4 @@ vssver.scc
 vssver2.scc
 *.idea
 *.iml
+*.class
