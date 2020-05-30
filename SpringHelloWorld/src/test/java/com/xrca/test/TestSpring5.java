@@ -66,9 +66,33 @@ public class TestSpring5 {
     @Test
     public void testOrder() {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Order order = applicationContext.getBean("order", Order.class);
+        if (order != null) {
+            System.out.println(order.getName() + "  " + order.getAddress());
+        }
+    }
+
+    /**
+     * 测试spring中使用有参构造方法注入属性，使用index指定属性
+     */
+    @Test
+    public void testOrder2() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
         Order order = applicationContext.getBean("order2", Order.class);
         if (order != null) {
             System.out.println(order.getName() + "  " + order.getAddress());
+        }
+    }
+
+    /**
+     * 测试spring的XML方式用p名称空间注入属性
+     */
+    @Test
+    public void testBook2() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Book book = applicationContext.getBean("book2", Book.class);
+        if (book != null) {
+            System.out.println(book.getName());
         }
     }
 }
