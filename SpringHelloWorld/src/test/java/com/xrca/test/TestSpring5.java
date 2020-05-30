@@ -1,5 +1,7 @@
 package com.xrca.test;
 
+import com.xrca.spring5.Book;
+import com.xrca.spring5.Order;
 import com.xrca.spring5.Student;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
@@ -44,5 +46,29 @@ public class TestSpring5 {
         if (xiaoMing != null) {
             xiaoMing.say();
         }*/
+    }
+
+    /**
+     * 测试spring的XML方式注入属性
+     */
+    @Test
+    public void testBook() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Book book = applicationContext.getBean("book", Book.class);
+        if (book != null) {
+            System.out.println(book.getName());
+        }
+    }
+
+    /**
+     * 测试spring中使用有参构造方法注入属性
+     */
+    @Test
+    public void testOrder() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Order order = applicationContext.getBean("order2", Order.class);
+        if (order != null) {
+            System.out.println(order.getName() + "  " + order.getAddress());
+        }
     }
 }

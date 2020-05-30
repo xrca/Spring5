@@ -3,4 +3,25 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
     <bean id="stu" class="com.xrca.spring5.Student" ></bean>
+
+    <!-- 使用property 完成属性注入
+         name：类里面的属性
+         value：属性的赋值
+            -->
+    <bean id="book" class="com.xrca.spring5.Book" >
+        <property name="name" value="Core Java" />
+    </bean>
+
+    <!-- 使用有参构造，注入属性，参数个数必须保持一致 -->
+    <bean id="order" class="com.xrca.spring5.Order">
+        <!-- name指的是构造方法的参数名 -->
+        <constructor-arg name="orderName" value="Core Java"></constructor-arg>
+        <constructor-arg name="orderAddress" value="江苏南京"></constructor-arg>
+    </bean>
+
+    <!-- 使用有参构造，注入属性，index从0开始-->
+    <bean id="order2" class="com.xrca.spring5.Order">
+        <constructor-arg index="0" value="Core Java"></constructor-arg>
+        <constructor-arg index="1" value="江苏南京"></constructor-arg>
+    </bean>
 </beans>
