@@ -1,6 +1,7 @@
 package com.xrca.test;
 
 import com.xrca.spring5.entity.Book;
+import com.xrca.spring5.entity.Employee;
 import com.xrca.spring5.entity.Order;
 import com.xrca.spring5.service.StudentService;
 import org.junit.Test;
@@ -133,7 +134,7 @@ public class TestSpring5 {
     }
 
     /**
-     * 测试对象属性注入
+     * 测试外部注入对象属性
      */
     @Test
     public void testStudentService() {
@@ -141,6 +142,18 @@ public class TestSpring5 {
         StudentService studentService = applicationContext.getBean("stuService", StudentService.class);
         if (studentService != null) {
             studentService.addStudent();
+        }
+    }
+
+    /**
+     * 测试内部注入对象属性
+     */
+    @Test
+    public void testEmployee() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Employee employee = applicationContext.getBean("emp", Employee.class);
+        if (employee != null) {
+            System.out.println(employee.getDepartment().getName() + " " + employee.getName() + " " + employee.getGender());
         }
     }
 }

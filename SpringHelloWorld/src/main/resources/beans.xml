@@ -54,4 +54,14 @@
     <bean id="stuService" class="com.xrca.spring5.service.impl.StudentServiceImpl">
         <property name="studentDao" ref="studentDao"></property>
     </bean>
+
+    <bean id="emp" class="com.xrca.spring5.entity.Employee">
+        <property name="name" value="xrca" />
+        <property name="gender" value="男" />
+        <property name="department">
+            <bean id="department" class="com.xrca.spring5.entity.Department" >
+                <property name="name" value="开发部"/>
+            </bean>
+        </property>
+    </bean>
 </beans>
