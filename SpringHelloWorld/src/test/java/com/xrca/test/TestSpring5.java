@@ -156,4 +156,16 @@ public class TestSpring5 {
             System.out.println(employee.getDepartment().getName() + " " + employee.getName() + " " + employee.getGender());
         }
     }
+
+    /**
+     * 测试内部注入对象属性（级联赋值）
+     */
+    @Test
+    public void testEmployee2() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Employee employee = applicationContext.getBean("emp2", Employee.class);
+        if (employee != null) {
+            System.out.println(employee.getDepartment().getName() + " " + employee.getName() + " " + employee.getGender());
+        }
+    }
 }

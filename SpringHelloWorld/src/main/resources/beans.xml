@@ -64,4 +64,14 @@
             </bean>
         </property>
     </bean>
+
+    <bean id="emp2" class="com.xrca.spring5.entity.Employee">
+        <property name="name" value="xrca" />
+        <property name="gender" value="男" />
+        <property name="department" ref="department" />
+        <property name="department.name" value="开发部门" />
+    </bean>
+    <bean id="department" class="com.xrca.spring5.entity.Department" >
+        <property name="name" value="默认部门" />
+    </bean>
 </beans>
