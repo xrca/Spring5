@@ -1,4 +1,4 @@
-package com.xrca.spring5;
+package com.xrca.spring5.entity;
 
 /**
  * @author xrca
