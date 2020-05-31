@@ -1,8 +1,8 @@
 package com.xrca.test;
 
-import com.xrca.spring5.Book;
-import com.xrca.spring5.Order;
-import com.xrca.spring5.Student;
+import com.xrca.spring5.entity.Book;
+import com.xrca.spring5.entity.Order;
+import com.xrca.spring5.service.StudentService;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
@@ -129,6 +129,18 @@ public class TestSpring5 {
         Book book = applicationContext.getBean("book4", Book.class);
         if (book != null) {
             System.out.println(book.getName());
+        }
+    }
+
+    /**
+     * 测试对象属性注入
+     */
+    @Test
+    public void testStudentService() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        StudentService studentService = applicationContext.getBean("stuService", StudentService.class);
+        if (studentService != null) {
+            studentService.addStudent();
         }
     }
 }
