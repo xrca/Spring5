@@ -95,4 +95,40 @@ public class TestSpring5 {
             System.out.println(book.getName());
         }
     }
+
+    /**
+     * 测试spring中注入空值
+     */
+    @Test
+    public void testOrder3() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Order order = applicationContext.getBean("order3", Order.class);
+        if (order != null) {
+            System.out.println(order.getName() + "  " + order.getAddress());
+        }
+    }
+
+    /**
+     * 测试spring中注入特殊值
+     */
+    @Test
+    public void testBook3() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Book book = applicationContext.getBean("book3", Book.class);
+        if (book != null) {
+            System.out.println(book.getName());
+        }
+    }
+
+    /**
+     * 测试spring中注入特殊值
+     */
+    @Test
+    public void testBook4() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Book book = applicationContext.getBean("book4", Book.class);
+        if (book != null) {
+            System.out.println(book.getName());
+        }
+    }
 }

@@ -9,6 +9,10 @@ public class Order {
 
     private String address;
 
+    public Order() {
+
+    }
+
     public Order(String orderName, String orderAddress) {
         this.name = orderName;
         this.address = orderAddress;

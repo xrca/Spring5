@@ -28,4 +28,24 @@
 
     <!-- 使用p名称空间注入 -->
     <bean id="book2" class="com.xrca.spring5.Book" p:name="Core Java2" ></bean>
+
+    <!-- 注入空值 -->
+    <bean id="order3" class="com.xrca.spring5.Order">
+        <property name="name" value="Core Java"></property>
+        <property name="address">
+            <null></null>
+        </property>
+    </bean>
+
+    <!-- 转义字符注入特殊值 -->
+    <bean id="book3" class="com.xrca.spring5.Book" >
+        <property name="name" value="&lt;&lt;Core Java&gt;&gt;" ></property>
+    </bean>
+
+    <!-- CDATA注入特殊值 -->
+    <bean id="book4" class="com.xrca.spring5.Book" >
+        <property name="name" >
+            <value><![CDATA[<<Thinking in Java>>]]></value>
+        </property>
+    </bean>
 </beans>
