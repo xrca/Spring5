@@ -1,8 +1,8 @@
 package com.xrca.test;
 
-import com.xrca.spring5.entity.Book;
-import com.xrca.spring5.entity.Employee;
-import com.xrca.spring5.entity.Order;
+import com.xrca.spring5.atuowrie.Emp;
+import com.xrca.spring5.beanLife.BeanLife;
+import com.xrca.spring5.entity.*;
 import com.xrca.spring5.service.StudentService;
 import org.junit.Test;
 import org.springframework.beans.factory.BeanFactory;
@@ -12,6 +12,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import com.alibaba.druid.pool.DruidDataSource;
+
+import javax.sql.DataSource;
+import java.util.Arrays;
 
 /**
  * @author xrca
@@ -166,6 +170,99 @@ public class TestSpring5 {
         Employee employee = applicationContext.getBean("emp2", Employee.class);
         if (employee != null) {
             System.out.println(employee.getDepartment().getName() + " " + employee.getName() + " " + employee.getGender());
+        }
+    }
+
+    /**
+     * 测试注入集合属性
+     */
+    @Test
+    public void testCollection() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Student student = applicationContext.getBean("student", Student.class);
+        if (student != null) {
+            System.out.println("====== 数组 ======");
+            System.out.println(Arrays.toString(student.getCourses()));
+            System.out.println("====== List ======");
+            student.getList().forEach(System.out::println);
+            System.out.println("====== Map ======");
+            System.out.println(student.getMap());
+            System.out.println("====== Set ======");
+            student.getSets().forEach(System.out::println);
+            System.out.println("====== 对象集合 ======");
+            student.getMyCourses().forEach(System.out::println);
+        }
+    }
+
+    /**
+     * 测试注入集合属性
+     */
+    @Test
+    public void testCollection2() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Student student = applicationContext.getBean("student2", Student.class);
+        if (student != null) {
+            System.out.println("====== List ======");
+            student.getList().forEach(System.out::println);
+        }
+    }
+
+    /**
+     * 测试FactoryBean
+     */
+    @Test
+    public void testFactoryBean() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Course course = applicationContext.getBean("fBean", Course.class);
+        if (course != null) {
+            System.out.println(course);
+        }
+    }
+
+    /**
+     * 测试Bean作用域
+     */
+    @Test
+    public void testBeanScope() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Course course1 = applicationContext.getBean("course", Course.class);
+        Course course2 = applicationContext.getBean("course", Course.class);
+        System.out.println(course1 == course2);
+    }
+
+    /**
+     * 测试Bean生命周期
+     */
+    @Test
+    public void testBeanLife() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        BeanLife beanLife = applicationContext.getBean("beanLife", BeanLife.class);
+        System.out.println("step4：使用bean，" + beanLife);
+        ((ClassPathXmlApplicationContext) applicationContext).close();
+    }
+
+    /**
+     * 测试自动装配
+     */
+    @Test
+    public void testAutowrie() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+        Emp emp = applicationContext.getBean("empA", Emp.class);
+        if (emp != null) {
+            System.out.println(emp);
+        }
+    }
+
+    /**
+     * 测试引用外部文件
+     */
+    @Test
+    public void testDruidCP() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml");
+
+        DataSource dataSource = applicationContext.getBean("druidCP", DruidDataSource.class);
+        if (dataSource != null) {
+            System.out.println(dataSource);
         }
     }
 }

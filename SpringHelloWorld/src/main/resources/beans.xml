@@ -2,7 +2,11 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <bean id="stu" class="com.xrca.spring5.entity.Student" ></bean>
 
     <!-- 使用property 完成属性注入
@@ -73,5 +77,116 @@
     </bean>
     <bean id="department" class="com.xrca.spring5.entity.Department" >
         <property name="name" value="默认部门" />
+    </bean>
+
+    <bean id="student" class="com.xrca.spring5.entity.Student" >
+        <!-- 注入数组类型属性 -->
+        <property name="courses" >
+            <array>
+                <value>语文</value>
+                <value>数学</value>
+                <value>英语</value>
+                <value>物理</value>
+                <value>化学</value>
+            </array>
+        </property>
+        <!-- 注入List集合类型属性 -->
+        <property name="list">
+            <list>
+                <value>Java</value>
+                <value>数据结构</value>
+                <value>数据库</value>
+                <value>操作系统</value>
+                <value>计算机组成原理</value>
+            </list>
+        </property>
+        <!-- 注入Map集合类型属性 -->
+        <property name="map" >
+            <map>
+                <entry key="Java" value="99" />
+                <entry key="数据库" value="98" />
+                <entry key="操作系统" value="96" />
+                <entry key="Java" value="99.5" />
+            </map>
+        </property>
+        <!-- 注入set集合类型属性 -->
+        <property name="sets" >
+            <set>
+                <value>MySQL</value>
+                <value>Redis</value>
+                <value>ElasticSearch</value>
+                <value>MySQL</value>
+            </set>
+        </property>
+        <!-- 注入对象集合型属性 -->
+        <property name="myCourses" >
+            <list>
+                <ref bean="MySQL" />
+                <ref bean="Redis" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="MySQL" class="com.xrca.spring5.entity.Course" >
+        <property name="name" value="MySQL从入门到精通" />
+    </bean>
+    <bean id="Redis" class="com.xrca.spring5.entity.Course" >
+        <property name="name" value="Redis实战" />
+    </bean>
+
+    <!-- 集合作为公用 -->
+    <util:list id="courseList" >
+        <value>Spring5</value>
+        <value>Spring MVC</value>
+        <value>Spring Data</value>
+    </util:list>
+
+    <bean id="student2" class="com.xrca.spring5.entity.Student" >
+        <property name="list" ref="courseList" />
+    </bean>
+
+    <!-- FactoryBean -->
+    <bean id="fBean" class="com.xrca.spring5.factoryBean.XRCAFactoryBean">
+    </bean>
+
+    <!-- scope设置bean的作用域（单例或多例）:singleton、prototype、request、session、global session
+        默认singleton，并在加载spring配置文件的时候就创建对象
+        设置为prototype的时候，不是在加载spring配置文件时候创建对象，而是在调用getBean方法的时候创建多实例对象
+     -->
+    <bean id="course" class="com.xrca.spring5.entity.Course" scope="prototype" >
+        <property name="name" value="MySQL从入门到精通" />
+    </bean>
+
+    <!-- 测试bean生命周期 -->
+    <bean id="beanLife" class="com.xrca.spring5.beanLife.BeanLife" init-method="init" destroy-method="destroy">
+        <property name="bName" value="测试" />
+    </bean>
+
+    <!-- 后置处理器
+    <bean id="beanPost" class="com.xrca.spring5.beanLife.BeanPost" />-->
+
+    <!-- 自动装配
+        byName：根据属性名称注入，id与类中的属性名称一致
+        byType：根据属性类型注入
+    -->
+    <bean id="empA" class="com.xrca.spring5.atuowrie.Emp" autowire="byName">
+        <!--<property name="dept" ref="dept" />-->
+    </bean>
+
+    <bean id="dept" class="com.xrca.spring5.atuowrie.Dept" />
+
+    <!-- 读取外部文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties" />
+
+    <bean id="druidCP" class="com.alibaba.druid.pool.DruidDataSource" >
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/xrca_jdbc" />
+        <property name="username" value="root" />
+        <property name="password" value="saury2020" />
+        <property name="driverClassName" value="${driverClassName}" />
+        <property name="url" value="${url}" />
+        <!-- 不能使用${username} spring会默认加载系统使用的环境变量，在spring.xml配置数据库用户名时，实际加载的是当前计算机的名称 -->
+        <property name="username" value="${user}" />
+        <property name="password" value="${password}" />
     </bean>
 </beans>
