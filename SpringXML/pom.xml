@@ -9,7 +9,15 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>SpringDemo2</artifactId>
+    <artifactId>SpringXML</artifactId>
 
+    <dependencies>
+        <!-- druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+            <version>1.1.23</version>
+        </dependency>
+    </dependencies>
 
 </project>
